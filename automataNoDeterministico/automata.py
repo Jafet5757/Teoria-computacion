@@ -1,35 +1,51 @@
+import numpy as np
 
-def automata(string, states = ['q0', 'q1', 'q2']):
-  positionMatrix = [[[] for i in range(len(string))] for i in range(len(string))]
-  j = 0 # Indica la fila pero tmbién el estado
-  i = 0 # Indica la columna y el automata
-  lastAtomata = 0 # Indica el último automata que se usó
+def automata(string, branching = False):
+  """ Verifica si termina en 01 la cadena dada """
+  matrix = []
+  counter = 0
   for c in string:
     if c == '1':
-      positionMatrix[i][j] = states[0]
-    elif c == '0':
-      # Pueden ser q0 o q1
-      # Para q0 se queda en el mismo estado este automata
-      positionMatrix[i][j] = states[0]
-      # Para q1 cambia de estado y de automata
-      positionMatrix[lastAtomata+1][j] = states[1]
-      lastAtomata += 1
-      # Si el siguiente caracter es 0, se detiene el automata
-      if string[j] == '0':
-        positionMatrix[lastAtomata][j] = 'x'
-      else:
-        positionMatrix[lastAtomata][j] = states[2]
-    j += 1
-  return positionMatrix
+      matrix.append('q0')
+    elif c == '0' and not branching:
+      matrix.append('q0') # para la primer rama
+      # Para la segunda rama lo hacemos recursivamente
+      matrix.append(automata(string[counter:], True))
+    else: # branching
+      matrix.append('q1')
+      try:
+        if string[1] == '1' and len(string) == 2:
+          matrix.append('q2')
+        else:
+          matrix.append('x')
+      except:
+        matrix.append('x')
+      return matrix
+    counter += 1
+  return matrix
+
+def formatMatrix(matrix, string):
+  """ Formateamos la matriz para darle forma de tabla a cada uno de los automatas """
+  formattedMatrix = [[[] for i in range(len(matrix))] for i in range(len(matrix))]
+  for i in range(len(matrix)):
+    if matrix[i] != 'q0':
+      for j in range(len(matrix[i])):
+        if formattedMatrix[i-1][j] == []:
+          formattedMatrix[i-1][j] = matrix[i]
+    else:
+      formattedMatrix[i][0] = matrix[i]
+  return formattedMatrix
 
 
 def write_Matrix(filename, positionMatrix):
   with open(filename, 'w') as file:
     for row in positionMatrix:
       for element in row:
-        file.write(str(element) + ' ')
+        file.write(str(element))
       file.write('\n')
 
-matrix = automata('010101')
+string = '01010111'
+matrix = automata(string)
+#matrix = formatMatrix(matrix, string)
 print(matrix)
 write_Matrix('matrix.txt', matrix)
