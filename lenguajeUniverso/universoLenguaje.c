@@ -87,9 +87,9 @@ int main() {
   // Registra el tiempo de inicio
   clock_t inicio = clock();
 
-  int numeroPosiciones = 8;
-  int strLenght = 32;
-  int start = 0;
+  int numeroPosiciones = 28; // Número de posiciones
+  int strLenght = 32; // Longitud de la cadena en bits
+  int start = 0; // Número de combinación inicial
   char symbols[] = "*.";
   char filename[] = "combinations.csv";
 
