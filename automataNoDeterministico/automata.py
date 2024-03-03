@@ -44,8 +44,20 @@ def write_Matrix(filename, positionMatrix):
         file.write(str(element))
       file.write('\n')
 
-string = '01010111'
+def generateBinaryStrings(size):
+  """ Genera una cadena binaria aleatoria de tamaño size """
+  return ''.join([str(np.random.randint(0, 2)) for i in range(size)])
+
+def start():
+  """ Inicia el automata de forma automatica """
+  string = generateBinaryStrings(10)
+  matrix = automata(string)
+  #matrix = formatMatrix(matrix, string)
+  write_Matrix('matrix.txt', matrix)
+  return matrix, string
+
+""" string = '01010111'
 matrix = automata(string)
 #matrix = formatMatrix(matrix, string)
 print(matrix)
-write_Matrix('matrix.txt', matrix)
+write_Matrix('matrix.txt', matrix) """

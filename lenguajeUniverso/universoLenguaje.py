@@ -4,6 +4,7 @@
   k es la cantidad de simbolos que tiene la palabra
 """
 import time
+import numpy as np
 
 
 def generateCombinations(k, symbols, filename='combinations.csv'):
@@ -16,20 +17,29 @@ def generateCombinations(k, symbols, filename='combinations.csv'):
 
   # Generando las combinaciones
   with open(filename, 'a') as file:
-    file.write('Strings\n')
+    file.write('combination\n')
     for i in range(2**k):
       # convertimos el número a binario y lo rellenamos con ceros
       binary_str = bin(i)[2:].zfill(k)
 
       # convertimos el número a una palabra
       word = ''.join(symbols[int(char)] for char in binary_str)
-      #print(word)
+      print(word)
       file.write(word+'\n')
 
-# probamos
+
+def start():
+  symbols = ['*', '.']
+  # Generamos el k-ésimo nivel aleatorio
+  k = np.random.randint(5, 10)
+  generateCombinations(k, symbols)
+  return k
+
+
+""" # probamos
 inicio = time.time()
 symbols = ['*', '.']
 k = 5
 generateCombinations(k, symbols)
 fin = time.time()
-print(f'Tiempo de ejecución: {fin-inicio} segundos')
+print(f'Tiempo de ejecución: {fin-inicio} segundos') """
