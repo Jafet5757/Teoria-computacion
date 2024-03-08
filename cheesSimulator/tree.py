@@ -35,6 +35,20 @@ class TreeNode:
       for child in self.children:
         child.print_tree()
 
+  def save_tree(self, file):
+    with open(file, "w") as f:
+      f.write(str(self.data) + "\n")
+      self.save_tree_rec(f, self.children, 1)
+  
+  def save_tree_rec(self, f, children, level):
+    for child in children:
+      spaces = ' ' * level * 3  # Usar level en lugar de self.get_level()
+      prefix = spaces + "|__" if child.parent else ""  # Usar child.parent en lugar de self.parent
+      f.write(prefix + str(child.data) + "\n")
+      if child.children:
+        self.save_tree_rec(f, child.children, level + 1)
+
+
 # Probamos el código
 def build_product_tree():
   root = TreeNode("Electronics")
