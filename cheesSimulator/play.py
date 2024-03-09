@@ -52,15 +52,82 @@ def competition(root1, root2, turns = 6):
   """
   final_solution = TreeNode('solution')
   for i in range(turns*2):
+    # Turno actual y siguiente
+    turn_actual = i % 2
+    turn_next = (i + 1) % 2
     if i % 2 == 0:
       # Turno del jugador 1, seleccionamos un movimiento aleatorio de las soluciones
-      root1	 = random.choice(root1.children)
-      final_solution.add_child(TreeNode(str(i%2)+'-'+str(root1.data)))
+      root1_child = random.choice(root1.children)
+      movement_data = f"{turn_actual}-{root1_child.data}"
+      contrincant_data = f"{turn_next}-{root1_child.data}"
+
+      movement = TreeNode(movement_data)
+      contrincant = TreeNode(contrincant_data)
+
+      # Verificamos si hay colisiones con el contrincante
+      if collisions(final_solution, contrincant):
+        print("colision")
+        # Si hay colisiones, el jugador 1 busca rebasar al jugador 2
+        new_node = toPass(final_solution, root1, i)
+        root1 = new_node if new_node else root1
+      else:
+        final_solution.add_child(movement)
+        root1 = root1_child
     else:
       # Turno del jugador 2, seleccionamos un movimiento aleatorio de las soluciones
-      root2 = random.choice(root2.children)
-      final_solution.add_child(TreeNode(str(i%2)+'-'+str(root2.data)))
+      root2_child = random.choice(root2.children)
+      movement_data = f"{turn_actual}-{root2_child.data}"
+      contrincant_data = f"{turn_next}-{root2_child.data}"
+
+      movement = TreeNode(movement_data)
+      contrincant = TreeNode(contrincant_data)
+
+      # Verificamos si hay colisiones con el contrincante
+      if collisions(final_solution, contrincant):
+        print("colision")
+        # Si hay colisiones, el jugador 2 busca rebasar al jugador 1
+        new_node = toPass(final_solution, root2, i)
+        root2 = new_node if new_node else root2
+      else:
+        final_solution.add_child(movement)
+        root2 = root2_child
   return final_solution
+
+def collisions(final_solution, movement):
+  """ 
+    Verifica si hay colisiones entre los movimientos de los jugadores
+    Args:
+      final_solution (TreeNode): Nodo raíz de la solución final
+      movement (TreeNode): Nodo del movimiento
+  """
+  for child in final_solution.children:
+    if child.data == movement.data:
+      return True
+  return False
+
+def toPass(final_solution, root_player, turn):
+  """ 
+    Hace un rebase buscando un movivimento posible y avanzando dos casillas
+    Args:
+      final_solution (TreeNode): Nodo raíz de la solución final
+      root_player (TreeNode): Nodo raíz del jugador
+      turn (int): Turno actual (0, 1)
+    Returns:
+      str: Movimiento posible
+  """
+  turn_actual = turn%2
+  turn_next = (turn+1)%2
+  childrens = root_player.children
+  # Entre lo hijos (siguientes movimientos) buscamos uno que no esté en la solución final
+  for child in childrens:
+    contrincant_next_move = TreeNode(str(turn_next)+'-'+str(child.data))
+    if not collisions(final_solution, contrincant_next_move):
+      # Si no hay colisiones, avanzamos dos casillas
+      final_solution.add_child(TreeNode(str(turn_actual)+'-'+str(child.data))) # Nodo del movimiento
+      final_solution.add_child(TreeNode(str(turn_actual)+'-'+str(child.children[0].data))) # Nodo del siguiente movimiento
+      return child.children[0]
+  # si siempre colisiona, haz un pass
+  return None
 
 if __name__ == "__main__":
   start()
