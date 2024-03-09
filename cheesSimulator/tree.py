@@ -1,3 +1,4 @@
+import pickle
 
 class TreeNode:
   def __init__(self, data):
@@ -47,6 +48,14 @@ class TreeNode:
       f.write(prefix + str(child.data) + "\n")
       if child.children:
         self.save_tree_rec(f, child.children, level + 1)
+  
+  def save_tree_pickle(self, file):
+    with open(file, "wb") as f:
+      pickle.dump(self, f)
+  
+  def load_tree_pickle(file):
+    with open(file, "rb") as f:
+      return pickle.load(f)
 
 
 # Probamos el código
@@ -71,14 +80,10 @@ def build_product_tree():
   root.add_child(cellphone)
   root.add_child(tv)
 
-  root.print_tree()
+  #root.print_tree()
 
-  # Obtenemo un nodo
-"""   print("\n\n")
-  node = cellphone.get_child("Vivo")
-  if node:
-    node.print_tree()
-  else:
-    print("Node not found") """
+  root.save_tree_pickle("products.txt")
+  root = TreeNode.load_tree_pickle("products.txt")
+  root.print_tree()
 
 #build_product_tree()

@@ -30,8 +30,6 @@ def build_board_tree(movements, board, start = [0, 0]):
   # Por cada posición posible invocamos la función recursivamente
   for p in poitions:
     row, col = p
-    root.add_child(TreeNode(board[row][col]))
-    root_representation.add_child(TreeNode(board_representation[row][col]))
     child = build_board_tree(movements[1:], board, [row, col])
     root.add_child(child[0])
     root_representation.add_child(child[1])
@@ -76,8 +74,43 @@ def next_positions(board, char, col, row):
     poitions.append([row - 1, col + 1])
   return poitions
 
+def cleanSolutions(root, final_node):
+  """ Limpia el arbol en busca de las soluciones que contengan al nodo final
+      Args:
+        root (TreeNode): Nodo raíz
+        final_node (TreeNode): Nodo final, el que debe contener la solución
+  """
+  root_solutions = TreeNode(root.data)
+  # Iteramos cada rama del arbol buscando el nodo final
+  for child in root.children:
+    if find_node(child, final_node):
+      solution = cleanSolutions(child, final_node)
+      root_solutions.add_child(solution)
+  return root_solutions
+
+def find_node(root, node):
+  """ Busca el nodo en el arbol
+      Args:
+        root (TreeNode): Nodo raíz
+        node (TreeNode): Nodo a buscar
+      Returns:
+        bool: True si lo encuentra, False en caso contrario
+  """
+  if root.data == node.data and root.children == []:
+    return True
+  for child in root.children:
+    if find_node(child, node):
+      return True
+  return False
+
+# --------Creamos el arbol y probamos---------
 root, root_representation = build_board_tree(movements, board)
 root.print_tree()
 print()
 root_representation.print_tree()
 root_representation.save_tree("board_representation.txt")
+print()
+root_solutions = cleanSolutions(root_representation, TreeNode(16))
+root_solutions.print_tree()
+root_solutions.save_tree("board_representation_solutions.txt")
+root_solutions.save_tree_pickle("board_representation_solutions.tree")
