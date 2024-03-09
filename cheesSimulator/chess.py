@@ -1,3 +1,9 @@
+""" 
+  Autor: Kevin Jafet Moran Orozco
+  Fecha de inicio: 08/03/2024
+  Descripcion: Simulador tipo ajedrez en que se busca llegar a la otra esquina del tablero creando todo el árbol de posibilidades
+"""
+
 from tree import TreeNode
 
 # Tablero
@@ -15,9 +21,7 @@ board_representation = [
   [13, 14, 15, 16]
 ]
 
-movements = "BWBWBW"
-
-def build_board_tree(movements, board, start = [0, 0]):
+def build_board_tree(movements, start = [0, 0]):
   row, col = start
   root = TreeNode(board[row][col])
   root_representation = TreeNode(board_representation[row][col])
@@ -26,17 +30,17 @@ def build_board_tree(movements, board, start = [0, 0]):
     return root, root_representation
 
   # Obtenemos las posiciones posibles
-  poitions = next_positions(board, movements[0], col, row)
+  poitions = next_positions(movements[0], col, row)
   # Por cada posición posible invocamos la función recursivamente
   for p in poitions:
     row, col = p
-    child = build_board_tree(movements[1:], board, [row, col])
+    child = build_board_tree(movements[1:], [row, col])
     root.add_child(child[0])
     root_representation.add_child(child[1])
 
   return root, root_representation
 
-def next_positions(board, char, col, row):
+def next_positions(char, col, row):
   """ Nos movemos a la derecha, abajo, izquierda, arriba o diagonal si es un movimiento válido
       y el caracter es igual al que estamos buscando 
       Args:
@@ -104,7 +108,8 @@ def find_node(root, node):
   return False
 
 # --------Creamos el arbol y probamos---------
-root, root_representation = build_board_tree(movements, board)
+""" movements = "BWBWBW"
+root, root_representation = build_board_tree(movements)
 root.print_tree()
 print()
 root_representation.print_tree()
@@ -113,4 +118,4 @@ print()
 root_solutions = cleanSolutions(root_representation, TreeNode(16))
 root_solutions.print_tree()
 root_solutions.save_tree("board_representation_solutions.txt")
-root_solutions.save_tree_pickle("board_representation_solutions.tree")
+root_solutions.save_tree_pickle("board_representation_solutions.pkl") """

@@ -1,3 +1,9 @@
+""" 
+  Autor: Kevin Jafet Moran Orozco
+  Fecha de inicio: 08/03/2024
+  Descripcion: Libreria para el manejo de arboles
+"""
+
 import pickle
 
 class TreeNode:
