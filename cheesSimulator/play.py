@@ -1,6 +1,17 @@
+""" 
+  Autor: Kevin Jafet Moran Orozco
+  Fecha de inicio: 09/03/2024
+  Descripcion: Simulador tipo ajedrez en que se busca llegar a la otra esquina del tablero creando todo el árbol de posibilidades,
+  si un jugador es tapado en u paso puede hacer un rebase y un segundo movimiento (ventaja) con el que puede usar una casilla ocupada
+"""
+
 from tree import TreeNode
+import grapher
 import chess
 import random
+
+#semilla = 4002
+#random.seed(semilla)
 
 def start():
   """ 
@@ -27,6 +38,7 @@ def start():
   # Compiten las soluciones
   final_solution = competition(root_solutions1, root_solutions2, 9)
   final_solution.print_tree()
+  grapher.show_board(final_solution)
 
 
 def generate_random_movements(size=5, append=""):
@@ -52,6 +64,9 @@ def competition(root1, root2, turns = 6):
   """
   final_solution = TreeNode('solution')
   for i in range(turns*2):
+    # i alguno ya no tiene hijos, termina el juego
+    if not root1.children or not root2.children:
+      break
     # Turno actual y siguiente
     turn_actual = i % 2
     turn_next = (i + 1) % 2
