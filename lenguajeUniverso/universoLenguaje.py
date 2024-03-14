@@ -36,10 +36,11 @@ def start():
   return k
 
 
-""" # probamos
-inicio = time.time()
-symbols = ['*', '.']
-k = 5
-generateCombinations(k, symbols)
-fin = time.time()
-print(f'Tiempo de ejecución: {fin-inicio} segundos') """
+if __name__ == "__main__":
+  # probamos
+  inicio = time.time()
+  symbols = ['*', '.']
+  k = 5
+  generateCombinations(k, symbols)
+  fin = time.time()
+  print(f'Tiempo de ejecución: {fin-inicio} segundos')

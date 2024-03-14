@@ -18,15 +18,16 @@ def show():
   total = np.linspace(1, len(df), len(df))
 
   # Graficamos los resultados
+  plt.subplot(1, 2, 1)
   plt.scatter(total, df['dots'])
-  plt.title('Cantidad de . en cada combinación')
+  plt.title('Cantidad de .')
   plt.xlabel('Combinación')
   plt.ylabel('Cantidad de .')
-  plt.show()
 
   # Graficamos los resultados en log10
+  plt.subplot(1, 2, 2)
   plt.scatter(total, df['log_dots'], color='purple')
-  plt.title('Logaritmo base 10 de la cantidad de . en cada combinación')
+  plt.title('Log10 de la cantidad de .')
   plt.xlabel('Combinación')
   plt.ylabel('Log10 de la cantidad de .')
   plt.show()
