@@ -2,6 +2,7 @@ import sys
 sys.path.append('/automataNoDeterministico/')
 sys.path.append('/lenguajeUniverso/')
 sys.path.append('/protocolo/')
+sys.path.append('/cheesSimulator/')
 
 import automataNoDeterministico.automata as at
 import automataNoDeterministico.grafica as grat
@@ -26,7 +27,7 @@ while(True):
   print('\n\n1. Universo de lenguaje')
   print('2. Autómata no determinístico')
   print('3. Autómata de paridad')
-  print(f'r. Cambiar modo {'random' if mode_random else 'manual'}')
+  print(f'r. Cambiar modo (random = {mode_random})')
   print('0. Salir')
   opcion = input('Ingrese la opción: ')
   print('\n')
