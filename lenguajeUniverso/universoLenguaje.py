@@ -28,10 +28,17 @@ def generateCombinations(k, symbols, filename='combinations.csv'):
       file.write(word+'\n')
 
 
-def start():
+def start(random=True):
+  """
+    Inicia el programa
+  """
+  k = 2
+  if random:
+    # Generamos el k-ésimo nivel aleatorio
+    k = np.random.randint(5, 13)
+  else:
+    k = int(input('Ingrese el nivel k: '))
   symbols = ['*', '.']
-  # Generamos el k-ésimo nivel aleatorio
-  k = np.random.randint(5, 10)
   generateCombinations(k, symbols)
   return k
 

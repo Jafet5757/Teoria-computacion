@@ -14,30 +14,40 @@ def clear():
   print('\n'*100)
 clear()
 
+mode_random = True
+
+# Pregunta si se desea ejecutar en modo random
+opcion = input('Desea desactivar el modo random? (s/n): ')
+if opcion == 's':
+  mode_random = False
+
 # Pintamos las opciones
 while(True):
   print('\n\n1. Universo de lenguaje')
   print('2. Autómata no determinístico')
   print('3. Autómata de paridad')
+  print(f'r. Cambiar modo {'random' if mode_random else 'manual'}')
   print('0. Salir')
   opcion = input('Ingrese la opción: ')
   print('\n')
 
   if opcion == '1':
-    k = ul.start()
+    k = ul.start(random=mode_random)
     print(f'Nivel k: {k}')
     opcion = input('Desea graficar las combinaciones? (s/n): ')
     if opcion == 's':
       grul.show()
   elif opcion == '2':
-    matrix, string = at.start()
+    matrix, string = at.start(random=mode_random)
     print(matrix)
     print('Cadena generada',string)
     opcion = input('Desea graficar el automata? (s/n): ')
     if opcion == 's':
-      grat.show()
+      grat.show_register(matrix)
   elif opcion == '3':
     automata = ap.ParityDetector()
-    automata.start_random()
+    automata.start_random(random = mode_random)
+  elif opcion == 'r':
+    mode_random = not mode_random
   elif opcion == '0':
     break

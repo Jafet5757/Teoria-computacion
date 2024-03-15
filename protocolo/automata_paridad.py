@@ -38,7 +38,7 @@ class ParityDetector:
     import random
     return ''.join(random.choice(self.alphabet) for _ in range(length))
   
-  def start_random(self):
+  def start_random(self, random = True):
     """ 
       Ejecuta el autómata sobre una cadena aleatoria.
       Returns:
@@ -46,7 +46,7 @@ class ParityDetector:
         str: La cadena generada.
         str: El registro de estados por los que pasó el autómata. 
     """
-    string = self.generate_string(10)
+    string = self.generate_string(10) if random else input('Ingrese la cadena binaria: ')
     result,register = self.run(string)
     # Pintamos los resultados
     print(f'La cadena {string} es {"aceptada" if result else "rechazada"}')

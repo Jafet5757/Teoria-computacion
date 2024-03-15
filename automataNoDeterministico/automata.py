@@ -48,16 +48,30 @@ def generateBinaryStrings(size):
   """ Genera una cadena binaria aleatoria de tamaño size """
   return ''.join([str(np.random.randint(0, 2)) for i in range(size)])
 
-def start():
+def start(random = True):
   """ Inicia el automata de forma automatica """
-  string = generateBinaryStrings(10)
+  string = ''
+  if random:
+    string = generateBinaryStrings(10)
+  else:
+    string = input('Ingrese la cadena binaria: ')
   matrix = automata(string)
   #matrix = formatMatrix(matrix, string)
   write_Matrix('matrix.txt', matrix)
   return matrix, string
 
-""" string = '01010111'
-matrix = automata(string)
-#matrix = formatMatrix(matrix, string)
-print(matrix)
-write_Matrix('matrix.txt', matrix) """
+def is_there_final_state(matrix):
+  """ Verifica si hay un estado final en la matriz """
+  for row in matrix:
+    for element in row:
+      if element == 'q2':
+        return True
+  return False
+
+if __name__ == "__main__":
+  string = '01010101'
+  matrix = automata(string)
+  #matrix = formatMatrix(matrix, string)
+  print(matrix)
+  print(f'La cadena {string} termina en 01? {is_there_final_state(matrix)}')
+  write_Matrix('matrix.txt', matrix)
