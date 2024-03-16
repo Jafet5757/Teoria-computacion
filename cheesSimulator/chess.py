@@ -4,7 +4,7 @@
   Descripcion: Simulador tipo ajedrez en que se busca llegar a la otra esquina del tablero creando todo el árbol de posibilidades
 """
 
-from tree import TreeNode
+from cheesSimulator.tree import TreeNode
 
 # Tablero
 board = [

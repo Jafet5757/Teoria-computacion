@@ -123,7 +123,7 @@ def show_board(solutions_tree):
   ventana.title("Tablero de ajedrez")
 
   # Cargar la imagen
-  imagen_fondo = tk.PhotoImage(file="./img/board.png")
+  imagen_fondo = tk.PhotoImage(file="./cheesSimulator/img/board.png")
 
   # Crear un canvas en la ventana con la imagen de fondo
   canvas = tk.Canvas(ventana, width=imagen_fondo.width(), height=imagen_fondo.height())
@@ -141,8 +141,8 @@ def show_board(solutions_tree):
   array_solutions_player0 = array_solutions_to_coordinates(array_solutions, 0)
   array_solutions_player1 = array_solutions_to_coordinates(array_solutions, 1)
 
-  AnimatedApp(ventana, canvas, "./img/player1.png", array_solutions_player0)
-  AnimatedApp(ventana, canvas, "./img/player2.png", array_solutions_player1)
+  AnimatedApp(ventana, canvas, "./cheesSimulator/img/player1.png", array_solutions_player0)
+  AnimatedApp(ventana, canvas, "./cheesSimulator/img/player2.png", array_solutions_player1)
 
   # Iniciar el bucle principal de la aplicación
   ventana.mainloop()

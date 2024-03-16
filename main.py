@@ -9,6 +9,7 @@ import automataNoDeterministico.grafica as grat
 import lenguajeUniverso.universoLenguaje as ul
 import lenguajeUniverso.graficador as grul
 import protocolo.automata_paridad as ap
+from cheesSimulator import play as chees
 
 # Limpia la consola
 def clear():
@@ -27,6 +28,7 @@ while(True):
   print('\n\n1. Universo de lenguaje')
   print('2. Autómata no determinístico')
   print('3. Autómata de paridad')
+  print('4. Juego tipo ajedrez')
   print(f'r. Cambiar modo (random = {mode_random})')
   print('0. Salir')
   opcion = input('Ingrese la opción: ')
@@ -48,6 +50,8 @@ while(True):
   elif opcion == '3':
     automata = ap.ParityDetector()
     automata.start_random(random = mode_random)
+  elif opcion == '4':
+    chees.start()
   elif opcion == 'r':
     mode_random = not mode_random
   elif opcion == '0':

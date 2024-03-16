@@ -5,9 +5,9 @@
   si un jugador es tapado en u paso puede hacer un rebase y un segundo movimiento (ventaja) con el que puede usar una casilla ocupada
 """
 
-from tree import TreeNode
-import grapher
-import chess
+from cheesSimulator.tree import TreeNode
+import cheesSimulator.grapher as grapher
+import cheesSimulator.chess as chess
 import random
 
 #semilla = 4002
