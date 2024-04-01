@@ -31,3 +31,6 @@ def show():
   plt.xlabel('Combinación')
   plt.ylabel('Log10 de la cantidad de .')
   plt.show()
+
+if __name__ == '__main__':
+  show()

@@ -51,7 +51,7 @@ while(True):
     automata = ap.ParityDetector()
     automata.start_random(random = mode_random)
   elif opcion == '4':
-    chees.start()
+    chees.start(random = mode_random)
   elif opcion == 'r':
     mode_random = not mode_random
   elif opcion == '0':

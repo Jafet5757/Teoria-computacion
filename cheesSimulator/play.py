@@ -10,16 +10,16 @@ import cheesSimulator.grapher as grapher
 import cheesSimulator.chess as chess
 import random
 
-#semilla = 4002
+#semilla = 10
 #random.seed(semilla)
 
-def start():
+def start(random = True):
   """ 
     Inicia una partida creando dos jugadoeres que inician en extremos opuestos del tablero
     con el objetivo de llegar a la otra esquina. 
   """
-  movements1 = generate_random_movements(8, append="W")
-  movements2 = generate_random_movements(8, append="B")
+  movements1 = generate_random_movements(8, append="W") if random else input("Ingrese los movimientos del jugador 1: ")
+  movements2 = generate_random_movements(8, append="B") if random else input("Ingrese los movimientos del jugador 2: ")
   start1 = [0, 0]
   start2 = [0, 3] # El tablero es de 4x4
   final_node1 = TreeNode(16)
@@ -41,7 +41,7 @@ def start():
   grapher.show_board(final_solution)
 
 
-def generate_random_movements(size=5, append=""):
+def  generate_random_movements(size=5, append=""):
   """ 
     Genera movimientos aleatorios para el tablero de ajedrez
     Ejemplo: BWBBWBWWWBW
@@ -139,7 +139,9 @@ def toPass(final_solution, root_player, turn):
     if not collisions(final_solution, contrincant_next_move):
       # Si no hay colisiones, avanzamos dos casillas
       final_solution.add_child(TreeNode(str(turn_actual)+'-'+str(child.data))) # Nodo del movimiento
-      final_solution.add_child(TreeNode(str(turn_actual)+'-'+str(child.children[0].data))) # Nodo del siguiente movimiento
+      #final_solution.add_child(TreeNode(str(turn_actual)+'-'+str(child.children[0].data))) # Nodo del siguiente movimiento
+      if final_solution.children[-1].children and not collisions(final_solution, final_solution.children[-1].children[0]):
+        final_solution.add_child(TreeNode(str(turn_actual)+'-'+str(final_solution.children[-1].children[0].data)))
       return child.children[0]
   # si siempre colisiona, haz un pass
   return None

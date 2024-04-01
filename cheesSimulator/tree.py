@@ -92,4 +92,5 @@ def build_product_tree():
   root = TreeNode.load_tree_pickle("products.txt")
   root.print_tree()
 
-#build_product_tree()
+if __name__ == "__main__":
+  build_product_tree()
