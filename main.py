@@ -3,6 +3,7 @@ sys.path.append('/automataNoDeterministico/')
 sys.path.append('/lenguajeUniverso/')
 sys.path.append('/protocolo/')
 sys.path.append('/cheesSimulator/')
+sys.path.append('/buscadorPalabras/')
 
 import automataNoDeterministico.automata as at
 import automataNoDeterministico.grafica as grat
@@ -10,6 +11,7 @@ import lenguajeUniverso.universoLenguaje as ul
 import lenguajeUniverso.graficador as grul
 import protocolo.automata_paridad as ap
 from cheesSimulator import play as chees
+from buscadorPalabras import buscador as bp
 
 # Limpia la consola
 def clear():
@@ -29,6 +31,7 @@ while(True):
   print('2. Autómata no determinístico')
   print('3. Autómata de paridad')
   print('4. Juego tipo ajedrez')
+  print('5. Buscador de palabras')
   print(f'r. Cambiar modo (random = {mode_random})')
   print('0. Salir')
   opcion = input('Ingrese la opción: ')
@@ -52,6 +55,8 @@ while(True):
     automata.start_random(random = mode_random)
   elif opcion == '4':
     chees.start(random = mode_random)
+  elif opcion == '5':
+    bp.start(random = mode_random)
   elif opcion == 'r':
     mode_random = not mode_random
   elif opcion == '0':

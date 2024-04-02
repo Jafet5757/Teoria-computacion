@@ -1,15 +1,21 @@
-from automata import Automata
-import get_noticia as getter
+import sys
 
-def main(random = False):
+sys.path.append('/buscadorPalabras/')
+
+from buscadorPalabras.automata import Automata
+import buscadorPalabras.get_noticia as getter
+
+def start(random = False):
   words = ''
-  if not random:
+  if random:
     words = getter.get_noticia()
   else:
-    opc = input('1. Introducir la url de la noticia \n2. Seleccionar el archivo de texto test_text.txt \nSeleccione una opción:')
+    opc = input('\n1. Introducir la url de la noticia \n2. Seleccionar el archivo de texto test_text.txt \n3. Ingresar palabra \nSeleccione una opción:')
     if opc == '1':
       url = input('Introduzca la url de la noticia: ')
       words = getter.get_noticia(url)
+    elif opc == '3':
+      words = input('Introduzca la palabra: ')
     else:
       with open('test_text.txt', 'r', encoding='utf-8') as file:
         words = file.read()
@@ -19,7 +25,8 @@ def main(random = False):
   opc = input('\nDesea visualizar el autómata? (S/n): ')
   if opc == 's' or opc == 'S':
     buscador.draw()
+    buscador.draw_register()
 
 
 if __name__ == "__main__":
-  main(True)
+  start(True)
