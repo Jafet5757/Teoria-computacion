@@ -7,6 +7,13 @@ headers = {
 }
 
 def get_noticia(url = 'https://elpais.com/mexico/2024-01-16/mexico-mantiene-los-altos-niveles-de-violencia-y-registra-30523-asesinatos-en-2023.html'):
+  """ 
+    Obtiene el texto de una noticia de la web, solo funciona para la web de el pais
+    args:
+      url: str - url de la noticia
+    return:
+      str - texto de la noticia 
+  """
 
   # Realizamos la petición a la web
   response = requests.get(url, headers=headers)

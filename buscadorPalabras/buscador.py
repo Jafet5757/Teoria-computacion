@@ -11,12 +11,15 @@ def main(random = False):
       url = input('Introduzca la url de la noticia: ')
       words = getter.get_noticia(url)
     else:
-      with open('test_text.txt', 'r') as file:
+      with open('test_text.txt', 'r', encoding='utf-8') as file:
         words = file.read()
   buscador = Automata('tablaDFA.csv')
   buscador.run(words)
   print('Se ha creado el archivo registro_estados.txt')
+  opc = input('\nDesea visualizar el autómata? (S/n): ')
+  if opc == 's' or opc == 'S':
+    buscador.draw()
 
 
 if __name__ == "__main__":
-  main()
+  main(True)
