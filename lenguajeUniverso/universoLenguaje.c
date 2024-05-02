@@ -7,7 +7,7 @@
  * @brief Convierte un número decimal a binario
 */
 char* decimalToBinary(int num, int size) {
-  char *binary = (char *)calloc(size, sizeof(char)); // Se asume un entero de 32 bits, puedes ajustar según tus necesidades
+  char *binary = (char *)calloc(size, sizeof(char)); // Se asume un entero de 32 bits
   int i = 0;
 
   // Verifica si se pudo reservar memoria
