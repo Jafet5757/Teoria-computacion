@@ -12,6 +12,7 @@ class Grammar:
       "S": ["", "0", "1", "0S0", "1S1"]
     }
     self.alphabet = ["0", "1"]
+    self.register = ''
 
   def generate_palindrome(self):
     # seleccionamos una produccion aleatoria
@@ -20,6 +21,9 @@ class Grammar:
     while True or counter < 100000000:
       # si hay un simbolo no terminal en la produccion
       if "S" in production:
+        # registrando la produccion
+        self.register += f'{production}\n'
+
         aux = random.choice(self.grammar["S"])
         # reemplazamos el simbolo no terminal por una produccion aleatoria
         production = production.replace("S", aux)
@@ -27,6 +31,7 @@ class Grammar:
         # si no hay simbolos no terminales en la produccion
         # retornamos la produccion
         return production
+      counter += 1
     
   def is_palindrome(self, word):
     # si la longitud de la cadena es 0 o 1
@@ -50,6 +55,11 @@ class Grammar:
       if c == "1" and word[-(i+1)] != "1":
         return False
     return True
+  
+  def write_register(self, filename='output.txt'):
+    # escribimos el registro en un archivo
+    with open(filename, 'w') as f:
+      f.write(self.register)
       
     
   
@@ -59,3 +69,4 @@ pali = g.generate_palindrome()
 print(pali)
 print(g.is_palindrome(pali))
 print(g.belongs_to_grammar(pali))
+g.write_register()
