@@ -22,20 +22,34 @@ class Stack:
         return len(self.items)
     
 
-def detect_simetric_string_zeros_ones(input_string):
+def detect_simetric_string_zeros_ones(input_string, filename='output.txt'):
     """
     Detecta si una cadena de ceros y unos es simetrica, tiene el mismo numero de ceros y unos
     empezando por ceros (apila) y terminando por unos (desapila)
     """
     s = Stack()
-    for i in input_string:
-        if i == '0':
-            s.push(i)
+    register = ''
+    x = ''
+    mode = 'q'
+    is_empty = False
+    for (i, c) in enumerate(input_string):
+        if c == '0':
+            s.push(c)
+            x += 'X'
+            register += f'({mode}, 0, {x[:-1]}Z0) = [(q, {x}Z0)]\n'
         else:
-            if s.isEmpty():
-                return False
+            register += f'({mode}, 1, {x}Z0) = [(p, {x[:-1]}Z0)]\n'
+            x = x[:-1]
+            mode = 'f' if x == '' else 'p'
+            if s.isEmpty(): # si la pila esta vacia antes de terminar de recorrer la cadena
+                is_empty = True
+                break
             s.pop()
-    return s.isEmpty()
+    # escribimos el registro en un archivo
+    with open(filename, 'w') as f:
+        f.write(register)
+    print(register)
+    return (x == '' and not is_empty), register
 
 # Usamos pygame para animar el proceso
 
@@ -57,8 +71,11 @@ font = pygame.font.Font(None, 36)
 
 def start(input_string):
     """ Inicia la simulación """
-    result = detect_simetric_string_zeros_ones(input_string)
+    result, register = detect_simetric_string_zeros_ones(input_string)
     oneTimeRender = False
+
+    # dividimos el registro en saltos de lineas
+    register = register.split('\n')
 
     clock = pygame.time.Clock()
 
@@ -84,9 +101,14 @@ def start(input_string):
               else:
                   x -= 60
                   pygame.draw.rect(screen, WHITE, (x, y, 50, 50))
+              # pintamos un cuadro blanco sobre el registro
+              pygame.draw.rect(screen, WHITE, (50, 200, 700, 50))
+              # Pintamos el registro
+              text = font.render(register.pop(0), True, BLACK)
+              screen.blit(text, (50, 200))
               # Esperamos un poco
               pygame.display.flip()
-              pygame.time.wait(500)
+              pygame.time.wait(1000)
               oneTimeRender = True
 
         pygame.display.flip()
@@ -102,7 +124,7 @@ if __name__ == "__main__":
     print(detect_simetric_string_zeros_ones('0000111')) # False
     print(detect_simetric_string_zeros_ones('0001111')) # False
     print(detect_simetric_string_zeros_ones('0001110')) # False """
-    start('00001111') # True
+    start('000111') # True
     #start('0000111') # False
     #start('0001111') # False
     #start('0001110') # False
