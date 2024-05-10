@@ -1,17 +1,21 @@
 if <condition> {
-	if <condition> {
 			if <condition> {
 					if <condition> {
 							if <condition> {
-									<statement> 
+									if <condition> {
+											<statement> 
 									} else { 
 							} else { 
 					} else { 
 			if <condition> {
-			if <condition> {
-					<statement> 
+					if <condition> {
+							<statement> 
 					} else { 
-			}} else { 
-	}} else { 
+			A
 } else { 
+	A
+} else { 
+} else { 
+A
+
 }

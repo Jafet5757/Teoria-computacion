@@ -38,10 +38,11 @@ class Grammar:
         tabs -= 2
         code += '<statement> \n' + ('\t'*tabs)
       elif c == 'C':
-        code += '<condition> {\n'+('\t'*tabs)
         tabs += 2
+        code += '<condition> {\n'+('\t'*tabs)
       elif c == 'A':
-        code += '}'
+        code += 'A\n'
+    code += '\n}'
     with open(filename, 'w') as f:
       f.write(code)
     return code
