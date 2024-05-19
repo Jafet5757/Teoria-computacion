@@ -22,7 +22,7 @@ class Stack:
         return len(self.items)
     
 
-def detect_simetric_string_zeros_ones(input_string, filename='output.txt'):
+def detect_simetric_string_zeros_ones(input_string, filename='output_stack.txt'):
     """
     Detecta si una cadena de ceros y unos es simetrica, tiene el mismo numero de ceros y unos
     empezando por ceros (apila) y terminando por unos (desapila)
@@ -104,8 +104,11 @@ def start(input_string):
               # pintamos un cuadro blanco sobre el registro
               pygame.draw.rect(screen, WHITE, (50, 200, 700, 50))
               # Pintamos el registro
-              text = font.render(register.pop(0), True, BLACK)
-              screen.blit(text, (50, 200))
+              try:
+                text = font.render(register.pop(0), True, BLACK)
+                screen.blit(text, (50, 200))
+              except:
+                  break
               # Esperamos un poco
               pygame.display.flip()
               pygame.time.wait(1000)

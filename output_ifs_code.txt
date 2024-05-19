@@ -1,21 +1,56 @@
-if <condition> {
-			if <condition> {
-					if <condition> {
-							if <condition> {
-									if <condition> {
+if <condition> 
+			if <condition> 
+					if <condition> 
+							if <condition> 
+									if <condition> 
+											if <condition> 
+													if <condition> 
+															if <condition> 
+																	if <condition> 
+																			if <condition> 
+																					<statement> 
+																			 else  
+																	 else  
+															 else  
+													if <condition> 
+															if <condition> 
+																	<statement> 
+															 else  
+													 else  
+											 else  
+									if <condition> 
+											if <condition> 
+													if <condition> 
+															<statement> 
+													 else  
+											 else  
+									A
+ else  
+							if <condition> 
+									if <condition> 
 											<statement> 
-									} else { 
-							} else { 
-					} else { 
-			if <condition> {
-					if <condition> {
+									 else  
+							A
+ else  
+					A
+ else  
+			 else  
+	 else  
+if <condition> 
+	if <condition> 
+			if <condition> 
+					if <condition> 
 							<statement> 
-					} else { 
+					 else  
 			A
-} else { 
-	A
-} else { 
-} else { 
+ else  
+	<statement> 
+ else  
+<statement> 
+ else  
+A
+ else  
+ else  
+ else  
 A
 
-}

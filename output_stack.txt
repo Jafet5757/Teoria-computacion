@@ -1,0 +1,6 @@
+(q, 0, Z0) = [(q, XZ0)]
+(q, 0, XZ0) = [(q, XXZ0)]
+(q, 0, XXZ0) = [(q, XXXZ0)]
+(q, 1, XXXZ0) = [(p, XXZ0)]
+(p, 1, XXZ0) = [(p, XZ0)]
+(p, 1, XZ0) = [(p, Z0)]

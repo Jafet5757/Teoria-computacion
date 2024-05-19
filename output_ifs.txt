@@ -1,0 +1,9 @@
+iCSeA
+iC(iCSe)eA
+iC(iC(iCSe)e)eA
+iC(iC(iC(iCSeS)e)e)eA
+iC(iC(iC(iC(iCSe)e(iCSeA))e)e)eA
+iC(iC(iC(iC(iC(iCSe)e)e(iC(iCSeA)eA))e)e)eA
+iC(iC(iC(iC(iC(iC(iCSeS)e)e)e(iC(iC(iCSeA)eA)eA))e)e)eA
+iC(iC(iC(iC(iC(iC(iC(iCSeS)e(iCSeS))e)e)e(iC(iC(iCSeS)eS)eA))e)e)eA
+iC(iC(iC(iC(iC(iC(iC(iC(iCSe)e(iCSeA))e(iC(iCSeA)e(iCSeA)))e)e)e(iC(iC(iC(iCSeA)eS)eS)eA))e)e)eA
