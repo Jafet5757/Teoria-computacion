@@ -127,7 +127,8 @@ if __name__ == "__main__":
     print(detect_simetric_string_zeros_ones('0000111')) # False
     print(detect_simetric_string_zeros_ones('0001111')) # False
     print(detect_simetric_string_zeros_ones('0001110')) # False """
-    start('000111') # True
+    #start('0011') # True
+    detect_simetric_string_zeros_ones(('0'*1000)+('1'*1000))
     #start('0000111') # False
     #start('0001111') # False
     #start('0001110') # False

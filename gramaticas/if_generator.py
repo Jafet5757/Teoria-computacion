@@ -1,11 +1,13 @@
 import random
 
+#random.seed(10)
+
 class Grammar:
 
   def __init__(self):
     self.grammar = {
-      'S': 'iCSeA',
-      'A': ['S', ''],
+      'S': 'iCtSA',
+      'A': ['eS', ''],
     }
     self.register = ''\
     
@@ -17,15 +19,13 @@ class Grammar:
     if_counter = 0
     while if_counter < size-1:
       self.register += f'{production}\n'
-      # Contamos el numero de S en la cadena
-      ss = production.count('S')
-      # Contamos el numero de A en la cadena
-      aa = production.count('A')
       if 'S' in production:
-        production = production.replace('S', '('+self.grammar['S']+')', random.randint(1, ss))
+        production = self.change_character_in_index(production, 'S', self.grammar['S'])
         if_counter += 1
+
       if 'A' in production: # este no agrega if, por eso no se incrementa el contador
-        production = production.replace('A', random.choice(self.grammar['A']), random.randint(1, aa))
+        production = self.change_character_in_index(production, 'A', random.choice(self.grammar['A']))
+    self.register += f'{production}\n'
     return production
   
   def write_register(self, filename='output_ifs.txt'):
@@ -46,19 +46,31 @@ class Grammar:
         code += '<statement> \n' + ('\t'*tabs)
       elif c == 'C':
         tabs += 2
-        code += '<condition> \n'+('\t'*tabs)
+        code += '<condition> '
+      elif c == 't':
+        code += 'then \n'+('\t'*tabs)
       elif c == 'A':
-        code += 'A\n'
+        code += 'end\n'
     code += '\n'
     with open(filename, 'w') as f:
       f.write(code)
     return code
 
+  def change_character_in_index(self, string, char, new_char):
+    # calculamos la cantidad de veces que aparece el caracter en la cadena
+    indices = []
+    for i, c in enumerate(string):
+        if c == char:
+            indices.append(i)
+    # seleccionamos un indice aleatorio
+    index = random.choice(indices)
+    # cambiamos el caracter en el indice seleccionado
+    return string[:index] + ('('+new_char+')' if new_char != '' else '') + (string[index + 1:] if index + 1 < len(string) else '')
       
 
 if __name__ == '__main__':
   g = Grammar()
-  ifs = g.generate_if(10)
+  ifs = g.generate_if(1000)
   g.write_register()
   print(ifs)
   print(g.ifs_to_code(ifs))
