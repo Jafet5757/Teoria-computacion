@@ -9,7 +9,7 @@ class Grammar:
       'S': 'iCtSA',
       'A': ['eS', ''],
     }
-    self.register = ''\
+    self.register = ''
     
   def count(self, string, char):
     return string.count(char)

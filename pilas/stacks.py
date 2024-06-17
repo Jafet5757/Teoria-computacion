@@ -1,5 +1,7 @@
 import pygame
 import sys
+import random
+import time
 
 # Implementación de una pila en Python
 class Stack:
@@ -33,6 +35,7 @@ def detect_simetric_string_zeros_ones(input_string, filename='output_stack.txt')
     mode = 'q'
     is_empty = False
     for (i, c) in enumerate(input_string):
+        print(i if i%10 == 0 else '')
         if c == '0':
             s.push(c)
             x += 'X'
@@ -120,15 +123,20 @@ def start(input_string):
     pygame.quit()
     sys.exit()
 
+def generate_simetric_string(n):
+    """ Genera una cadena de ceros y unos de longitud n """
+    return '0'*round(n/2) + '1'*round(n/2)
 
 # Probamos
 if __name__ == "__main__":
-    """ print(detect_simetric_string_zeros_ones('000111')) # True
-    print(detect_simetric_string_zeros_ones('0000111')) # False
-    print(detect_simetric_string_zeros_ones('0001111')) # False
-    print(detect_simetric_string_zeros_ones('0001110')) # False """
-    #start('0011') # True
-    detect_simetric_string_zeros_ones(('0'*1000)+('1'*1000))
-    #start('0000111') # False
-    #start('0001111') # False
-    #start('0001110') # False
+    # Iniciamos a contar el tiempo
+    start_time = time.time()
+    # Si la cadena es mayor a 10 usamos detección de simetría si no, usamos start para la animación
+    input_string = generate_simetric_string(10) 
+    print(input_string)
+    if len(input_string) > 10:
+        print(detect_simetric_string_zeros_ones(input_string))
+    else:
+        start(input_string)
+
+    print("--- %s seconds ---" % (time.time() - start_time))

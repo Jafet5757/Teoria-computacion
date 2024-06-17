@@ -1,0 +1,50 @@
+q0 0 -> (q1 X R)
+tape: 000111B
+q1 0 -> (q1 0 R)
+tape: X00111B
+q1 0 -> (q1 0 R)
+tape: X00111B
+q1 1 -> (q2 Y L)
+tape: X00111B
+q2 0 -> (q2 0 L)
+tape: X00Y11B
+q2 0 -> (q2 0 L)
+tape: X00Y11B
+q2 X -> (q0 X R)
+tape: X00Y11B
+q0 0 -> (q1 X R)
+tape: X00Y11B
+q1 0 -> (q1 0 R)
+tape: XX0Y11B
+q1 Y -> (q1 Y R)
+tape: XX0Y11B
+q1 1 -> (q2 Y L)
+tape: XX0Y11B
+q2 Y -> (q2 Y L)
+tape: XX0YY1B
+q2 0 -> (q2 0 L)
+tape: XX0YY1B
+q2 X -> (q0 X R)
+tape: XX0YY1B
+q0 0 -> (q1 X R)
+tape: XX0YY1B
+q1 Y -> (q1 Y R)
+tape: XXXYY1B
+q1 Y -> (q1 Y R)
+tape: XXXYY1B
+q1 1 -> (q2 Y L)
+tape: XXXYY1B
+q2 Y -> (q2 Y L)
+tape: XXXYYYB
+q2 Y -> (q2 Y L)
+tape: XXXYYYB
+q2 X -> (q0 X R)
+tape: XXXYYYB
+q0 Y -> (q3 Y R)
+tape: XXXYYYB
+q3 Y -> (q3 Y R)
+tape: XXXYYYB
+q3 Y -> (q3 Y R)
+tape: XXXYYYB
+q3 B -> (q4 B R)
+tape: XXXYYYB
