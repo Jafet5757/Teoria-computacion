@@ -1,0 +1,156 @@
+import pygame
+import sys
+import random
+import time
+
+# Implementación de una pila en Python
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def isEmpty(self):
+        return self.items == []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        return self.items.pop()
+
+    def peek(self):
+        return self.items[-1]
+
+    def size(self):
+        return len(self.items)
+    
+
+def detect_simetric_string_zeros_ones(input_string, filename='output_stack.txt'):
+    """
+    Detecta si una cadena de ceros y unos es simetrica, tiene el mismo numero de ceros y unos
+    empezando por ceros (apila) y terminando por unos (desapila)
+    """
+    s = Stack()
+    register = ''
+    x = ''
+    mode = 'q'
+    is_empty = False
+    for (i, c) in enumerate(input_string):
+        print(i if i%10 == 0 else '')
+        if c == '0':
+            s.push(c)
+            x += 'X'
+            register += f'({mode}, 0, {x[:-1]}Z0) = [(q, {x}Z0)]\n'
+        else:
+            register += f'({mode}, 1, {x}Z0) = [(p, {x[:-1]}Z0)]\n'
+            x = x[:-1]
+            mode = 'f' if x == '' else 'p'
+            if s.isEmpty(): # si la pila esta vacia antes de terminar de recorrer la cadena
+                is_empty = True
+                break
+            s.pop()
+    # escribimos el registro en un archivo
+    with open(filename, 'w') as f:
+        f.write(register)
+    print(register)
+    return (x == '' and not is_empty), register
+
+# Usamos pygame para animar el proceso
+
+# Define los colores
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+
+# Tamaño de la pantalla
+WIDTH, HEIGHT = 800, 600
+
+# Inicializa Pygame
+pygame.init()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Simulación de Apilación y Desapilación")
+
+# Fuente para texto
+font = pygame.font.Font(None, 36)
+
+def start(input_string):
+    """ Inicia la simulación """
+    result, register = detect_simetric_string_zeros_ones(input_string)
+    oneTimeRender = False
+
+    # dividimos el registro en saltos de lineas
+    register = register.split('\n')
+
+    clock = pygame.time.Clock()
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        if not oneTimeRender:
+          screen.fill(WHITE)
+
+        text = font.render(f"La cadena {input_string} es simétrica: {result}", True, BLACK)
+        screen.blit(text, (50, 100))
+
+        # agregamos un cuadrado rojo cada que detectemos un 0 y lo quitamos cada que detectemos un 1
+        x, y = 50, 500
+        if not oneTimeRender:
+          for i in input_string:
+              if i == '0':
+                  pygame.draw.rect(screen, RED, (x, y, 50, 50))
+                  x += 60
+              else:
+                  x -= 60
+                  pygame.draw.rect(screen, WHITE, (x, y, 50, 50))
+              # pintamos un cuadro blanco sobre el registro
+              pygame.draw.rect(screen, WHITE, (50, 200, 700, 50))
+              # Pintamos el registro
+              try:
+                text = font.render(register.pop(0), True, BLACK)
+                screen.blit(text, (50, 200))
+              except:
+                  break
+              # Esperamos un poco
+              pygame.display.flip()
+              pygame.time.wait(1000)
+              oneTimeRender = True
+
+        pygame.display.flip()
+        clock.tick(60)
+    
+    pygame.quit()
+    sys.exit()
+
+def generate_simetric_string(n):
+    """ Genera una cadena de ceros y unos de longitud n """
+    return '0'*round(n/2) + '1'*round(n/2)
+
+def run(random_mode = False):
+    """ Inicia la simulación """
+    if random_mode:
+        input_string = generate_simetric_string(random.randint(1, 30))
+    else:
+        input_string = input("Introduce una cadena de ceros y unos: ")
+    result, register = detect_simetric_string_zeros_ones(input_string)
+    # Si la cadena es menor a 10, usamos la animación
+    if len(input_string) > 10:
+        print(f"La cadena {input_string} es simétrica: {result}")
+    else:
+        start(input_string)
+        print(f"La cadena {input_string} es simétrica: {result}")
+
+# Probamos
+if __name__ == "__main__":
+    # Iniciamos a contar el tiempo
+    start_time = time.time()
+    # Si la cadena es mayor a 10 usamos detección de simetría si no, usamos start para la animación
+    input_string = generate_simetric_string(30) 
+    print(input_string)
+    if len(input_string) > 10:
+        print(detect_simetric_string_zeros_ones(input_string))
+    else:
+        start(input_string)
+
+    print("--- %s seconds ---" % (time.time() - start_time))
